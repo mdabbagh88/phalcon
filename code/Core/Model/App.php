@@ -296,7 +296,9 @@ Class App
 	 */
 	public function isServer($type="production")
 	{
-		if ($this->isCli()) return false; 
+	    if ($this->isCli()) {
+	        return $this->getConfig("application/status", self::APP_STATUS_DEVELOPMENT) == $type; 
+	    }
 		switch($type)
 		{
 			case "development":
@@ -366,6 +368,7 @@ Class App
 	public function loadCache($key, $callback=false)
 	{
 		$_cacheInstance = $this->getDataCache();
+		$_cached_value  = null;
 		if (!$this->isCacheEnabled() || is_null( ($_cached_value = $_cacheInstance->get($key)) )) {
 			$this->debugCache("CACHE MISS: ");
 			if ($callback) {
@@ -399,9 +402,12 @@ Class App
 	 */
 	public function saveCache($key, $value)
 	{
+	    if (!$this->isCacheEnabled()) return $this; 
+	    
 		$this->debugCache("CACHE SAVE: " . $key . "<br/>\n");
 		$_cacheInstance = $this->getDataCache();
 		$_cacheInstance->save($key, $value);
+		
 		return $this; 
 	}
 	
@@ -520,12 +526,10 @@ Class App
 	 */
 	protected function _loadConfiguration()
 	{
-		$all = glob(Cloud::registry("config_path") . '/*');
+		$all = glob(Cloud::registry("config_path") . '/*.php');
 		foreach($all as $path)
 		{
-			if (preg_match("/.*\.php$/i", $path)) {
-				require_once($path); 
-			}
+			require_once($path); 
 		}
 		$current_config = $this->getConfig(); 
 		/**
@@ -540,7 +544,7 @@ Class App
 	}
 	
 	/**
-	 * Register all modules from APP_PATH/modules/*
+	 * Register all modules from APP_PATH/code/*
 	 * This function stores the result of the glob / parse call in cache
 	 * @return \Cloud\Core\Model\App
 	 */
@@ -566,12 +570,18 @@ Class App
 		return $this; 
 	}
 	
+	/**
+	 * Register services required to run the app here.
+	 * Please encapsulate non-essential services elsewhere in the application
+	 * @return \Cloud\Core\Model\App
+	 */
 	protected function _registerCoreServices()
 	{
 	    $this->_registerDatabaseService();
 		$this->_registerRoutesService(); 
 		$this->_registerUrlService();
 		$this->_registerSessionService();
+		return $this; 
 	}
 	
 	/**
@@ -585,9 +595,10 @@ Class App
 	    $suffix  = str_replace(" ", "\\", ucwords(str_replace("_", " ", $adapter))); 
 	    $class   = "\Phalcon\Db\Adapter\\{$suffix}"; 
 	    if (!class_exists($class)) {
-	        throw new \Exception("Invalid database adapter: " . $class . " specified");
-	    }
-	    
+	        $class = "\Lib" . $class; 
+	        if (!class_exists($class))
+	           throw new \Exception("Invalid database adapter: " . $suffix . " specified. Not found in Phalcon or lib/Phalcon");
+	    } 
 	    $required_config_values = array("database/host", "database/username", "database/password", "database/dbname");
 	    $dbConfig               = array(); 
 	    foreach($required_config_values as $cv) {
