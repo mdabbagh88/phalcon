@@ -5,18 +5,13 @@ Class Design
 	use \Cloud\Core\Library\ObjectTrait\DataObject;
 	use \Cloud\Core\Library\ObjectTrait\SingletonObject;
 	
-	const LAYOUT_HOMEPAGE 		= "homepage";
-	const LAYOUT_ONECOL   		= "onecol";
-	const LAYOUT_TWOCOL_LEFT 	= "twocol_left";
-	
+    const DEFAULT_LAYOUT        = "twocol_left"; //Put your default layout here	
 	const DEFAULT_PACKAGE		= "default";
-	const LAYOUT_CONTAINER		= "container"; 
 	
 	protected function _construct()
 	{
-		$this->setMainLayout(self::LAYOUT_TWOCOL_LEFT); 
+		$this->setMainLayout(self::DEFAULT_LAYOUT); 
 		$this->setDesignPackage(self::DEFAULT_PACKAGE);
-		$this->setLayoutContainer(self::LAYOUT_CONTAINER); 
 		return $this; 
 	}
 	
