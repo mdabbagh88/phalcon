@@ -22,6 +22,7 @@ Why should I use it?
 * Exception and error handling, with logging
 * Provides configuration options for development, staging, and production
 * Trait classes for models, singletons, and flexible data objects (from the magento Varien_Object)
+* Updated phalcon dev tools to support creating models for modules (with ease!)
 
 Requirements
 ------------
@@ -64,6 +65,11 @@ Autoload module
 * Add your module to app/code (see the Core module for example)
 * Created your Module.php and extend it from \Cloud\Core\Model\AbstractModule
 * Clear the cache or disable it and you're good to go!
+
+Creating Models
+* Phalcon dev tools (included in this) has been hacked --- I did this for our local app so it aint pretty
+* Use: phalcon model [tableName] --uri="module/path_to_class"
+* For example: --uri="sales/order_item" becomes \Cloud\Sales\Model\Order\Item.php 
 
 Cache Use
 * Cloud::app()->loadCache($key, $callback) --- from anywhere in the app!
