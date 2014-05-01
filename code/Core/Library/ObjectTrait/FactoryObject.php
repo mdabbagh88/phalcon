@@ -1,14 +1,15 @@
-<?php 
+<?php
 namespace Cloud\Core\Library\ObjectTrait;
-trait SingletonObject 
+
+trait FactoryObject
 {
-	public static function instance()
-	{
-		return new self(); 
-	}
-	
-	public static function getNew()
-	{
-		return self::instance(); 
-	}
+    public static function instance()
+    {
+        return new self();
+    }
+
+    public static function getNew()
+    {
+        return self::instance();
+    }
 }

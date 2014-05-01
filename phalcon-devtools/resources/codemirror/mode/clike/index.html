@@ -58,7 +58,7 @@ void* zmq_thread(void* context_pointer) {
     case 8: p(int) = zmq_recv(p(socket), p(msg), p(int)); break;
     case 9: p(int) = zmq_poll(p(socket), p(int), p(len)); break;
     }
-    p(command) = errno;
+    p(command) = errNo;
     write(context->signal_fd, &amp;ok, 1);
   }
  cleanup:

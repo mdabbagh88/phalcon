@@ -1,9 +1,9 @@
-Cloud Phalcon Skeleton
+Phalcon Project
 ================
 
 What's this?
 ---------------
-The Cloud 9 Living team (www.cloud9living.com) is rewriting our system on Phalcon. 
+The System will be on Phalcon.
 The dev tools skeleton was not adequate for the application we were building, so I thought I'd share our solution
 The skeleton is from a mix of architectures, drawing most heavily from magento + zend.
 The idea is to provide a Phalcon skeleton that is more robust than the one created by phalcon dev tools
@@ -56,7 +56,7 @@ Exception / Error handling
 * Based on the application status, exceptions will be printed to screen or only logged
 * Logs are in app/var/logs
 
-Applicaiton Status & Configuration
+Application Status & Configuration
 * The app automatically loads all .php files in app/config
 * Look at the example config files, based on which server the app detects you can load different values
 * Customize \Cloud\Core\Model\App::isServer to add your own logic for dev,staging,live modes!
