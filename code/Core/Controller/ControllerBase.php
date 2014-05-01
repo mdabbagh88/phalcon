@@ -1,6 +1,10 @@
 <?php
 namespace Cloud\Core\Controller;
-Class ControllerBase extends \Phalcon\Mvc\Controller
+
+use \Phalcon;
+
+Class ControllerBase extends Phalcon\Mvc\Controller
 {
-	
+
 }
+

@@ -4,7 +4,7 @@
 #$router->setDefaultNamespace("Cloud\Core\Controller");
 #$router->setDefaultController("Index");
 
-/** @var Phalcon\Mvc\Router  $router */
+/** @var Phalcon\Mvc\Router $router */
 $router->add(
     "/",
     array(
