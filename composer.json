@@ -1,0 +1,26 @@
+{
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Mohamed Meabed",
+            "email": "mo.meabed@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "magento/magento2",
+                "version": "master",
+                "source": {
+                    "url": "https://github.com/magento/magento2",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
+    "require": {
+    }
+
+}

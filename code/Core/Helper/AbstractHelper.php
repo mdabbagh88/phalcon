@@ -1,8 +1,11 @@
 <?php
 namespace Cloud\Core\Helper;
-use Cloud\Core\Helper; 
+
+use Cloud\Core\Helper;
+use \Cloud\Core\Library\ObjectTrait as ObjectTraits;
+
 Class AbstractHelper
 {
-	use \Cloud\Core\Library\ObjectTrait\DataObject; 
-	use \Cloud\Core\Library\ObjectTrait\SingletonObject;
+    use ObjectTraits\DataObject;
+    use ObjectTraits\SingletonObject;
 }
