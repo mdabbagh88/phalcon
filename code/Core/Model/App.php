@@ -4,7 +4,6 @@ namespace Cloud\Core\Model;
 use Phalcon;
 use Cloud;
 use Cloud\Core as Core;
-use Lib\Phalcon as Lib;
 
 Class App
 {
@@ -305,7 +304,7 @@ Class App
             case "development":
                 $hostname = $_SERVER["HTTP_HOST"];
                 //if (preg_match("/^(www\.)?local\..*$/i", $hostname)) {
-                if (stristr('localhost/', $hostname) !== false) {
+                if (stristr('localhost/', $hostname) !== 0) {
                     return true;
                 }
                 break;
@@ -681,7 +680,7 @@ Class App
             function () {
                 switch ($this->getConfig("application/session/save_path")) {
                     case Core\Model\App::SESSION_SAVE_MEMCACHED:
-                        $session = new Lib\Session\Adapter\Memcache(array(
+                        $session = new Phalcon\Session\Adapter\Memcache(array(
                             "host"     => $this->getConfig("application/session/host"),
                             "port"     => $this->getConfig("application/session/port"),
                             "lifetime" => $this->getConfig("application/session/lifetime")

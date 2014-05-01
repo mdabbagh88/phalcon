@@ -1,0 +1,12 @@
+[submodule "lib/Phalcon/pretty-exceptions"]
+	path = lib/Phalcon/pretty-exceptions
+	url = https://github.com/phalcon/pretty-exceptions.git
+[submodule "lib/Phalcon/incubator"]
+	path = lib/Phalcon/incubator
+	url = https://github.com/phalcon/incubator.git
+[submodule "lib/Phalcon/phalcon-debug-widget"]
+	path = lib/Phalcon/phalcon-debug-widget
+	url = https://github.com/jymboche/phalcon-debug-widget.git
+[submodule "lib/Phalcon/phalcon-devtools"]
+	path = lib/Phalcon/phalcon-devtools
+	url = https://github.com/phalcon/phalcon-devtools.git
