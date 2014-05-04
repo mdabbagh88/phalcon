@@ -1,4 +1,5 @@
 <?php
+
 namespace Cloud\Core;
 
 use Phalcon\Loader,
@@ -53,7 +54,8 @@ abstract class AbstractModule implements ModuleDefinitionInterface
                 $view->setLayout(\Cloud::app()->getDesign()->getMainLayout());
                 $view->registerEngines(
                     array(
-                        ".volt" => 'Phalcon\Mvc\View\Engine\Volt'
+                        ".volt"  => 'Phalcon\Mvc\View\Engine\Volt',
+                        ".phtml" => 'Phalcon\Mvc\View\Engine\Php'
                     )
                 );
                 return $view;
