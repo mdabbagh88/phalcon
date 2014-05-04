@@ -2,7 +2,7 @@
 namespace Cloud\Core\Model\App;
 
 use \Cloud\Core as Core;
-use \Cloud\Core\Library\ObjectTrait as ObjectTraits;
+use \Lib\Core\ObjectTrait as ObjectTraits;
 
 Class Design
 {

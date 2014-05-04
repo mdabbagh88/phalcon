@@ -3,6 +3,7 @@ namespace Cloud\Core\Model;
 
 use Phalcon;
 use Cloud;
+use Library;
 use Cloud\Core as Core;
 
 Class App
@@ -567,10 +568,11 @@ Class App
      */
     protected function _registerModules()
     {
-        require_once(Cloud::registry("app_path") . '/code/Core/Model/AbstractModule.php'); //Have to include this by hand
+        require_once(Cloud::registry("app_path") . '/lib/Core/Module/AbstractModule.php'); //Have to include this by hand
         $modules = $this->loadCache(
             $this->_cachePrefix . '-' . 'modules',
             function () {
+
                 $directories = glob(Cloud::registry("app_path") . '/code/*', GLOB_ONLYDIR);
                 $modules = array();
                 foreach ($directories as $module_dir) {
