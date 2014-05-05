@@ -100,6 +100,7 @@ Class App
 
     const MVC_MODULE = "Module";
     const MVC_DEFAULT_MODULE = "Core";
+    const MVC_MODULE_CONFIG = "config.xml";
 
     const MVC_ENTITY_CONTROLLER = "Controller";
     const MVC_ENTITY_MODEL = "Model";
@@ -161,7 +162,9 @@ Class App
             ->_loadConfiguration()
             ->_setErrorHandling()
             ->_registerCacheService() //Register the cache service before modules/core services as some of the work from these can be cached
+            ->_registerLibAutoloaders()
             ->_registerModules()
+            ->_setModuleConfig()
             ->_registerAutoloaders()
             ->_registerCoreServices();
     }
@@ -237,12 +240,28 @@ Class App
         return $this->_phalconRouter;
     }
 
+    /**
+     *
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param Phalcon\Mvc\Router $router
+     *
+     * @return $this
+     */
     public function setPhalconRouter(Phalcon\Mvc\Router $router)
     {
         $this->_phalconRouter = $router;
         return $this;
     }
 
+    /**
+     *
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return Phalcon\Loader|Phalcon\Loader\
+     */
     public function getPhalconLoader()
     {
         if (is_null($this->_phalconLoader)) {
@@ -286,6 +305,18 @@ Class App
             }
         }
         return (string)$_c;
+    }
+
+    /**
+     * Return array of the available modules in the application
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return array
+     */
+    public function getModules()
+    {
+        return $this->_modules;
     }
 
     /**
@@ -529,14 +560,45 @@ Class App
         return $cache;
     }
 
+    /**
+     *
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param bool $debug
+     */
     public function setDebugCache($debug = true)
     {
         \Cloud::register("__cache/debug", $debug);
     }
 
+    /**
+     *
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return null
+     */
     public function getDebugCache()
     {
         return \Cloud::registry("__cache/debug");
+    }
+
+    /**
+     *
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return $this
+     */
+    protected function _setModuleConfig()
+    {
+        foreach($this->_modules as $name => $module)
+        {
+            $config = simplexml_load_file($module['etc']);
+            $this->_modules[$name]['config'] = $config;
+        }
+        return $this;
     }
 
     /**
@@ -572,15 +634,19 @@ Class App
         $modules = $this->loadCache(
             $this->_cachePrefix . '-' . 'modules',
             function () {
-
                 $directories = glob(Cloud::registry("app_path") . '/code/*', GLOB_ONLYDIR);
                 $modules = array();
                 foreach ($directories as $module_dir) {
                     $module_name = preg_replace("/.*\/([^\/]*)$/", "$1", $module_dir); // Converts app/modules/Core --> Core
+                    $moduleConfigFile = $module_dir . '/etc/' . Core\Model\App::MVC_MODULE_CONFIG;
+                    if (!file_exists($moduleConfigFile)) {
+                        continue;
+                    }
                     $modules[$module_name] = array(
                         'className' => "Cloud\\{$module_name}\\Module",
                         'path'      => $module_dir . '/' . Core\Model\App::MVC_MODULE . '.php',
-                        'directory' => $module_dir
+                        'directory' => $module_dir,
+                        'etc'       => $moduleConfigFile,
                     );
                 }
                 return $modules;
@@ -749,6 +815,23 @@ Class App
             $this->emptyCache();
         }
         return $this;
+    }
+
+    /**
+     * Add Library Path to Autoloading before registering the module loading path again/
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return $this
+     */
+    protected function _registerLibAutoloaders()
+    {
+        $loader = $this->getPhalconLoader();
+        $namespaces["Lib"] = Cloud::registry("lib_path");
+        $loader->registerNamespaces($namespaces);
+        $loader->register();
+        return $this;
+
     }
 
     /**

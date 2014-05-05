@@ -2,7 +2,7 @@
 namespace Cloud\Core\Helper;
 
 use Cloud\Core\Helper;
-use \Cloud\Core\Library\ObjectTrait as ObjectTraits;
+use Lib\Core\ObjectTrait as ObjectTraits;
 
 Class AbstractHelper
 {

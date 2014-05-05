@@ -2,7 +2,7 @@
 
 /**
  * @class  Cloud\Cloud
- * @author Alan Barber
+ * @author Mohamed Meabed <mo.meabed@gmail.com>
  * This is a static class that allows access to all the operations of the application. The bootstrap script should always reference this class first.
  * The application is booted via the "run" method
  *
@@ -139,6 +139,23 @@ Class Cloud
     }
 
     /**
+     * Dispatch event for observers
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param       $event
+     * @param array $params
+     *
+     * @return mixed
+     */
+    public static function dispatchEvent($event, $params = array())
+    {
+        /** @var \Phalcon\Events\Manager $eventManager */
+        $eventManager = self::di()->getShared('eventsManager');
+        return $eventManager->fire($event, $params);
+    }
+
+    /**
      * Check if the cache is enabled
      * @return boolean
      */
@@ -147,6 +164,16 @@ Class Cloud
         return self::app()->isCacheEnabled();
     }
 
+    /**
+     * Load data from Cache
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param      $key
+     * @param bool $callback
+     *
+     * @return mixed|null
+     */
     public static function loadCache($key, $callback = false)
     {
         return self::app()->loadCache($key, $callback);

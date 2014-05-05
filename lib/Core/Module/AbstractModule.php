@@ -39,11 +39,18 @@ abstract class AbstractModule implements ModuleDefinitionInterface
         $di->set(
             'dispatcher',
             function () use ($di) {
-
-                $eventsManager = $di->getShared('eventsManager');
-                $eventObserver = new Lib\Core\Event\Observer();
-
+                /** @var Dispatcher $dispatcher  initiate the dispatcher */
                 $dispatcher = new Dispatcher();
+                /** @var \Phalcon\Events\Manager $eventsManager */
+                $eventsManager = $di->getShared('eventsManager');
+
+                $eventObserver = new Lib\Core\Event\Observer();
+                $eventObserver->setEventsManager($eventsManager);
+
+                $eventObserver->attachEventsFromModules();
+
+
+                $dispatcher->setEventsManager($eventsManager);
                 $dispatcher->setDefaultNamespace(\Cloud::app()->getModuleEntityNamespace(Model\App::MVC_ENTITY_CONTROLLER, $this->_getModuleName()));
 
                 $dispatcher->setDefaultController("IndexController");

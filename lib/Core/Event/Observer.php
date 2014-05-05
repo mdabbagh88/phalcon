@@ -6,6 +6,7 @@ use Phalcon\Events\EventsAwareInterface;
 
 class Observer implements EventsAwareInterface
 {
+    /** @var  \Phalcon\Events\Manager */
     protected $_eventsManager;
 
     public function setEventsManager($eventsManager)
@@ -18,6 +19,13 @@ class Observer implements EventsAwareInterface
         return $this->_eventsManager;
     }
 
+    public function attachEventsFromModules()
+    {
+        $modules = \Cloud::app()->getModules();
+
+    }
+
+
     public function someTask()
     {
         $this->_eventsManager->fire("my-component:beforeSomeTask", $this);
@@ -26,6 +34,8 @@ class Observer implements EventsAwareInterface
 
         $this->_eventsManager->fire("my-component:afterSomeTask", $this);
     }
+
+
 
 
 }

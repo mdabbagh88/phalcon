@@ -2,6 +2,7 @@
 <config>
     <module>
         <version>0.1.0</version>
+        <enabled>true</enabled>
     </module>
     <frontend>
         <events>
