@@ -43,7 +43,7 @@ Explation of Directories
 Getting Started
 ============================
 * You will want to run the install script in db/install-3.0.1.sql
-* Update your app/etc/config/local.php to set the application status to development
+* Update your app/etc/config/local.php to set the application status to development (just rename local.php.sample to local.php)
 * Update your app/etc/config/development.php settings
 * Set apache/nginx to public/ as the web root
 * Set directory index index.php
