@@ -1,0 +1,7 @@
+/app/etc/config/local.php
+/.buildpath
+/.phalcon
+/.project
+/.settings
+/*.volt.php
+/app/code/Core/old/*

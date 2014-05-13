@@ -1,0 +1,14 @@
+{
+  "name": "cloud9living-3.0",
+  "version": "3.0.1",
+  "author": "Alan Barber <abarber@cloud9living.com>",
+  "email": "abarber@cloud9living.com",
+  "url": "www.cloud9living.com",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-sass": "^0.7.3",
+    "grunt-contrib-requirejs": "^0.4.4"
+  }
+}

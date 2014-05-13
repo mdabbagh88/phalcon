@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config>
+	<module>
+		<version>1.0.0</version>
+		<active>true</active>
+	</module>
+	<routes>
+		<frontend>
+			<frontName>test</frontName>
+		</frontend>
+	</routes>
+</config>
