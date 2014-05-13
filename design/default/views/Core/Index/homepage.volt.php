@@ -1,1 +1,0 @@
-Now you're in the homepage controller-view-template! w00t w00t
