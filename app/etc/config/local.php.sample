@@ -1,0 +1,6 @@
+<?php 
+return array(
+    "application" => array(
+        "status"      => \Cloud\Core\Model\App::APP_STATUS_DEVELOPMENT
+     )
+);
