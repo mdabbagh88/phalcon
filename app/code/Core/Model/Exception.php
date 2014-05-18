@@ -1,6 +1,7 @@
-<?php 
-namespace Cloud\Core\Model; 
-Class Exception extends \Exception 
+<?php
+namespace Cloud\Core\Model;
+
+Class Exception extends \Exception
 {
-    
+
 }

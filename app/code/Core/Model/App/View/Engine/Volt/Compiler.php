@@ -1,6 +1,8 @@
 <?php
 namespace Cloud\Core\Model\App\View\Engine\Volt;
+
 use Cloud as Cloud;
+
 Class Compiler extends \Phalcon\Mvc\View\Engine\Volt\Compiler
 {
     /**
@@ -12,7 +14,7 @@ Class Compiler extends \Phalcon\Mvc\View\Engine\Volt\Compiler
         $path = $this->getDesign()->addPackage($path, $this);
         return parent::compileFile($path, $compiledPath, $extendsMode);
     }
-    
+
     /**
      * Return the design service
      * @return \Cloud\Core\Model\App\Design

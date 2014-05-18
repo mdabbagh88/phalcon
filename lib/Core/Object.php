@@ -1,7 +1,9 @@
 <?php
 namespace Cloud\Core\Library;
 
+use \Cloud\Core\Library\ObjectTrait as ObjectTraits;
+
 Class Object
 {
-    use \Cloud\Core\Library\ObjectTrait\DataObject;
+    use ObjectTraits\DataObject;
 }

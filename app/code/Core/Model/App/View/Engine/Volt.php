@@ -1,7 +1,9 @@
 <?php
 namespace Cloud\Core\Model\App\View\Engine;
+
 Use Cloud as Cloud;
 Use Cloud\Core\Model\App\View\Engine\Volt\Compiler as CloudCompiler;
+
 Class Volt extends \Phalcon\Mvc\View\Engine\Volt
 {
     /**
@@ -10,9 +12,9 @@ Class Volt extends \Phalcon\Mvc\View\Engine\Volt
      */
     public function getDesign()
     {
-       return Cloud::app()->getFrontController()->getDesign(); 
+        return Cloud::app()->getFrontController()->getDesign();
     }
-    
+
     // Override default Volt getCompiler method
     public function getCompiler()
     {
@@ -23,7 +25,7 @@ Class Volt extends \Phalcon\Mvc\View\Engine\Volt
         }
         return $this->_compiler;
     }
-    
+
     public function getOptions()
     {
         return is_array(parent::getOptions()) ? parent::getOptions() : array();

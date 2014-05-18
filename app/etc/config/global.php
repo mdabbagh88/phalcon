@@ -1,7 +1,7 @@
 <?php
- return array(
+return array(
     "application" => array(
-	   "name"    => "Cloud9Living",
-       "version" => "3.0.1" 
+        "name"    => "Cloud9Living",
+        "version" => "3.0.1"
     )
 );

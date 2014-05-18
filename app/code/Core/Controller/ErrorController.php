@@ -1,11 +1,14 @@
 <?php
 namespace Cloud\Core\Controller;
+
 use Cloud,
-	Cloud\Core\Controller; 
+    Cloud\Core\Controller;
+
 Class ErrorController extends ControllerBase
 {
     public function route404Action()
     {
-        echo "IN 404"; exit; 
+        echo "IN 404";
+        exit;
     }
 }
