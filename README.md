@@ -1,8 +1,8 @@
-Cloud 9 Living Phalcon PHP Skeleton
+Phalcon PHP Skeleton
 ======================
 
 
-Version 3.0.1 out now! This is a very robust update to Phalcon's MVC setup. It provides support for the following:
+Phalcon's MVC setup. It provides support for the following:
 
 * Better module loading system (through etc/modules/Module_Name.xml) --- no need to use the phaclon Module.php
 * Multiple websites linked to the database
