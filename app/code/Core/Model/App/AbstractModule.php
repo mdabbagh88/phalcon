@@ -59,8 +59,8 @@ abstract class AbstractModule implements ModuleDefinitionInterface
                 $view = new \Cloud\Core\Model\App\View(array("module" => $this->_getModuleName()));
                 $view->registerEngines(
                     array(
-                        ".volt"  => 'Cloud\Core\Model\View\Engine\Volt',
-                        ".phtml" => 'Phalcon\Mvc\View\Engine\Php'
+                        ".volt"  => '\Cloud\Core\Model\App\View\Engine\Volt',
+                        ".phtml" => '\Cloud\Core\Model\App\View\Engine\Phtml'
                     )
                 );
                 return $view;

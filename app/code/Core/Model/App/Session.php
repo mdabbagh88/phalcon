@@ -13,7 +13,7 @@ Abstract Class Session
     const SESSION_SAVE_REDIS = "Redis";
     const SESSION_SAVE_FILE = "File";
 
-    const SESSION_PREFIX = "cloud9living";
+    const SESSION_PREFIX = "cloud";
 
     const DEFAULT_SESSION_SAVE = "File";
     const DEFAULT_LIFETIME = 86400; //One day

@@ -29,8 +29,8 @@ return array(
     "database"    => array(
         "host"     => "localhost",
         "username" => "root",
-        "password" => "Aopen2close",
-        "dbname"   => "cloud9living_rewrite",
+        "password" => "meabed",
+        "dbname"   => "ads",
         "adapter"  => "pdo_mysql" //In format pdo_[type] where [type] = mysql|oracle|postgresql|sqlite
     )
 );

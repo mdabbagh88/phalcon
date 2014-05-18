@@ -11,6 +11,14 @@ Use \Cloud\Core\Model\App\Controller\Router\AbstractRouter as RouterMeta,
 
 Class Website extends AbstractModel
 {
+    const WEBSITE_ADMIN = "admin";
+    const WEBSITE_WWW = "www";
+    const WEBSITE_MOBILE = "mobile";
+
+    const AREA_ADMIN = "admin";
+    const AREA_FRONTEND = "frontend";
+    const AREA_GLOBAL = "global";
+
     ##!generated
     /** Do not write custom code between the generated blocks, or it will be overwritten by the Model Generator **/
 
@@ -58,14 +66,6 @@ Class Website extends AbstractModel
 
     }
 
-
-    const WEBSITE_ADMIN = "admin";
-    const WEBSITE_WWW = "www";
-    const WEBSITE_MOBILE = "mobile";
-
-    const AREA_ADMIN = "admin";
-    const AREA_FRONTEND = "frontend";
-    const AREA_GLOBAL = "global";
 
     /**
      * Return the current website based on the provided code

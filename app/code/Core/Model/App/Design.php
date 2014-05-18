@@ -379,7 +379,7 @@ Class Design
         $view = new View();
         $view->registerEngines(
             array(
-                ".volt" => function ($view, $di) {
+                ".volt"  => function ($view, $di) {
                         $volt = new \Cloud\Core\Model\App\View\Engine\Volt($view, $di);
                         $volt->setOptions(
                             array(
@@ -387,8 +387,8 @@ Class Design
                             )
                         );
                         return $volt;
-                    }
-
+                    },
+                ".phtml" => '\Cloud\Core\Model\App\View\Engine\Phtml',
             )
         );
         Cloud::app()->getDi()->setShared(ServiceMeta::SERVICE_VIEW, $view);
