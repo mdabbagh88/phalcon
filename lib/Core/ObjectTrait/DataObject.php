@@ -1,6 +1,8 @@
 <?php
 namespace Cloud\Core\Library\ObjectTrait;
+
 use Cloud\Core\Library\ObjectTrait;
+
 Trait DataObject
 {
 
@@ -18,10 +20,10 @@ Trait DataObject
     protected $_hasDataChanges = false;
 
     /**
-    * Original data that was loaded
-    *
-    * @var array
-    */
+     * Original data that was loaded
+     *
+     * @var array
+     */
     protected $_origData;
 
     /**
@@ -128,9 +130,10 @@ Trait DataObject
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
      *
      * @param boolean $isDeleted
+     *
      * @return boolean
      */
-    public function isDeleted($isDeleted=null)
+    public function isDeleted($isDeleted = null)
     {
         $result = $this->_isDeleted;
         if (!is_null($isDeleted)) {
@@ -153,6 +156,7 @@ Trait DataObject
      * set name of object id field
      *
      * @param   string $name
+     *
      * @return  DataObject
      */
     public function setIdFieldName($name)
@@ -164,8 +168,9 @@ Trait DataObject
     /**
      * Retrieve name of object id field
      *
-     * @param   string $name
-     * @return  DataObject
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return string
      */
     public function getIdFieldName()
     {
@@ -189,6 +194,7 @@ Trait DataObject
      * Set object id field value
      *
      * @param   mixed $value
+     *
      * @return  DataObject
      */
     public function setId($value)
@@ -207,11 +213,12 @@ Trait DataObject
      * Retains previous data in the object.
      *
      * @param array $arr
+     *
      * @return DataObject
      */
     public function addData(array $arr)
     {
-        foreach($arr as $index=>$value) {
+        foreach ($arr as $index => $value) {
             $this->setData($index, $value);
         }
         return $this;
@@ -226,13 +233,14 @@ Trait DataObject
      * If $key is an array, it will overwrite all the data in the object.
      *
      * @param string|array $key
-     * @param mixed $value
+     * @param mixed        $value
+     *
      * @return DataObject
      */
-    public function setData($key, $value=null)
+    public function setData($key, $value = null)
     {
         $this->_hasDataChanges = true;
-        if(is_array($key)) {
+        if (is_array($key)) {
             $this->_data = $key;
             $this->_addFullNames();
         } else {
@@ -251,9 +259,10 @@ Trait DataObject
      * $key can be a string only. Array will be ignored.
      *
      * @param string $key
+     *
      * @return DataObject
      */
-    public function unsetData($key=null)
+    public function unsetData($key = null)
     {
         $this->_hasDataChanges = true;
         if (is_null($key)) {
@@ -274,9 +283,10 @@ Trait DataObject
      * $key can be a string only. Array will be ignored.
      *
      * @param string $key
+     *
      * @return DataObject
      */
-    public function unsetOldData($key=null)
+    public function unsetOldData($key = null)
     {
         if (is_null($key)) {
             foreach ($this->_syncFieldsMap as $key => $newFieldName) {
@@ -297,24 +307,25 @@ Trait DataObject
      * If $index is specified it will assume that attribute data is an array
      * and retrieve corresponding member.
      *
-     * @param string $key
+     * @param string     $key
      * @param string|int $index
+     *
      * @return mixed
      */
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
-        if (''===$key) {
+        if ('' === $key) {
             return $this->_data;
         }
 
         $default = null;
 
         // accept a/b/c as ['a']['b']['c']
-        if (strpos($key,'/')) {
+        if (strpos($key, '/')) {
             $keyArr = explode('/', $key);
             $data = $this->_data;
-            foreach ($keyArr as $i=>$k) {
-                if ($k==='') {
+            foreach ($keyArr as $i => $k) {
+                if ($k === '') {
                     return $default;
                 }
                 if (is_array($data)) {
@@ -362,6 +373,7 @@ Trait DataObject
      * Get value from _data array without parse key
      *
      * @param   string $key
+     *
      * @return  mixed
      */
     protected function _getData($key)
@@ -373,12 +385,13 @@ Trait DataObject
      * Set object data with calling setter method
      *
      * @param string $key
-     * @param mixed $args
+     * @param mixed  $args
+     *
      * @return DataObject
      */
-    public function setDataUsingMethod($key, $args=array())
+    public function setDataUsingMethod($key, $args = array())
     {
-        $method = 'set'.$this->_camelize($key);
+        $method = 'set' . $this->_camelize($key);
         $this->$method($args);
         return $this;
     }
@@ -387,12 +400,13 @@ Trait DataObject
      * Get object data by key with calling getter method
      *
      * @param string $key
-     * @param mixed $args
+     * @param mixed  $args
+     *
      * @return mixed
      */
-    public function getDataUsingMethod($key, $args=null)
+    public function getDataUsingMethod($key, $args = null)
     {
-        $method = 'get'.$this->_camelize($key);
+        $method = 'get' . $this->_camelize($key);
         return $this->$method($args);
     }
 
@@ -400,7 +414,8 @@ Trait DataObject
      * Fast get data or set default if value is not available
      *
      * @param string $key
-     * @param mixed $default
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public function getDataSetDefault($key, $default)
@@ -416,9 +431,10 @@ Trait DataObject
      * Otherwise checks if the specified attribute is set.
      *
      * @param string $key
+     *
      * @return boolean
      */
-    public function hasData($key='')
+    public function hasData($key = '')
     {
         if (empty($key) || !is_string($key)) {
             return !empty($this->_data);
@@ -430,6 +446,7 @@ Trait DataObject
      * Convert object attributes to array
      *
      * @param  array $arrAttributes array of required attributes
+     *
      * @return array
      */
     public function __toArray(array $arrAttributes = array())
@@ -442,8 +459,7 @@ Trait DataObject
         foreach ($arrAttributes as $attribute) {
             if (isset($this->_data[$attribute])) {
                 $arrRes[$attribute] = $this->_data[$attribute];
-            }
-            else {
+            } else {
                 $arrRes[$attribute] = null;
             }
         }
@@ -454,6 +470,7 @@ Trait DataObject
      * Public wrapper for __toArray
      *
      * @param array $arrAttributes
+     *
      * @return array
      */
     public function toArray(array $arrAttributes = array())
@@ -466,9 +483,10 @@ Trait DataObject
      *
      * @param   array $arr
      * @param   array $elements
+     *
      * @return  array
      */
-    protected function _prepareArray(&$arr, array $elements=array())
+    protected function _prepareArray(&$arr, array $elements = array())
     {
         foreach ($elements as $element) {
             if (!isset($arr[$element])) {
@@ -482,17 +500,18 @@ Trait DataObject
      * Convert object attributes to XML
      *
      * @param  array $arrAttributes array of required attributes
-     * @param string $rootName name of the root element
+     * @param string $rootName      name of the root element
+     *
      * @return string
      */
-    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag = false, $addCdata = true)
     {
         $xml = '';
         if ($addOpenTag) {
-            $xml.= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+            $xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         }
         if (!empty($rootName)) {
-            $xml.= '<'.$rootName.'>'."\n";
+            $xml .= '<' . $rootName . '>' . "\n";
         }
         $xmlModel = new Varien_Simplexml_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
@@ -502,10 +521,10 @@ Trait DataObject
             } else {
                 $fieldValue = $xmlModel->xmlentities($fieldValue);
             }
-            $xml.= "<$fieldName>$fieldValue</$fieldName>"."\n";
+            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
         }
         if (!empty($rootName)) {
-            $xml.= '</'.$rootName.'>'."\n";
+            $xml .= '</' . $rootName . '>' . "\n";
         }
         return $xml;
     }
@@ -513,11 +532,16 @@ Trait DataObject
     /**
      * Public wrapper for __toXml
      *
-     * @param array $arrAttributes
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param array  $arrAttributes
      * @param string $rootName
+     * @param bool   $addOpenTag
+     * @param bool   $addCdata
+     *
      * @return string
      */
-    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag = false, $addCdata = true)
     {
         return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
     }
@@ -526,6 +550,7 @@ Trait DataObject
      * Convert object attributes to JSON
      *
      * @param  array $arrAttributes array of required attributes
+     *
      * @return string
      */
     protected function __toJson(array $arrAttributes = array())
@@ -539,6 +564,7 @@ Trait DataObject
      * Public wrapper for __toJson
      *
      * @param array $arrAttributes
+     *
      * @return string
      */
     public function toJson(array $arrAttributes = array())
@@ -551,9 +577,10 @@ Trait DataObject
      *
      * @param  array  $arrAttributes array of required attributes
      * @param  string $valueSeparator
+     *
      * @return string
      */
-//    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
+//    public function __toString(array $arrAttributes = array(), $valueSeparator = ',')
 //    {
 //        $arrData = $this->toArray($arrAttributes);
 //        return implode($valueSeparator, $arrData);
@@ -565,16 +592,17 @@ Trait DataObject
      * Will use $format as an template and substitute {{key}} for attributes
      *
      * @param string $format
+     *
      * @return string
      */
-    public function toString($format='')
+    public function toString($format = '')
     {
         if (empty($format)) {
             $str = implode(', ', $this->getData());
         } else {
             preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
             foreach ($matches[1] as $var) {
-                $format = str_replace('{{'.$var.'}}', $this->getData($var), $format);
+                $format = str_replace('{{' . $var . '}}', $this->getData($var), $format);
             }
             $str = $format;
         }
@@ -584,47 +612,52 @@ Trait DataObject
     /**
      * Set/Get attribute wrapper
      *
-     * @param   string $method
-     * @param   array $args
-     * @return  mixed
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param $method
+     * @param $args
+     *
+     * @return bool|DataObject|mixed
+     * @throws \Exception
      */
     public function __call($method, $args)
     {
         switch (substr($method, 0, 3)) {
             case 'get' :
                 //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
-                $key = $this->_underscore(substr($method,3));
+                $key = $this->_underscore(substr($method, 3));
                 $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
                 //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
                 return $data;
 
             case 'set' :
                 //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
-                $key = $this->_underscore(substr($method,3));
+                $key = $this->_underscore(substr($method, 3));
                 $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
                 //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
                 return $result;
 
             case 'uns' :
                 //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);
-                $key = $this->_underscore(substr($method,3));
+                $key = $this->_underscore(substr($method, 3));
                 $result = $this->unsetData($key);
                 //Varien_Profiler::stop('UNS: '.get_class($this).'::'.$method);
                 return $result;
 
             case 'has' :
                 //Varien_Profiler::start('HAS: '.get_class($this).'::'.$method);
-                $key = $this->_underscore(substr($method,3));
+                $key = $this->_underscore(substr($method, 3));
                 //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new \Exception("Invalid method ".get_class($this)."::".$method."(".print_r($args,1).")");
+        throw new \Exception("Invalid method " . get_class($this) . "::" . $method . "(" . print_r($args, 1) . ")");
     }
 
     /**
      * Attribute getter (deprecated)
      *
      * @param string $var
+     *
      * @return mixed
      */
 
@@ -638,7 +671,7 @@ Trait DataObject
      * Attribute setter (deprecated)
      *
      * @param string $var
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($var, $value)
     {
@@ -660,12 +693,13 @@ Trait DataObject
     }
 
     /**
-     * Converts field names for setters and geters
+     * Converts field names for setters and getters
      *
      * $this->setMyField($value) === $this->setData('my_field', $value)
-     * Uses cache to eliminate unneccessary preg_replace
+     * Uses cache to eliminate unnecessary preg_replace
      *
      * @param string $name
+     *
      * @return string
      */
     protected function _underscore($name)
@@ -682,21 +716,22 @@ Trait DataObject
 
     protected function _camelize($name)
     {
-        return uc_words($name, '');
+        return ucwords($name, '');
     }
 
     /**
      * serialize object attributes
      *
-     * @param   array $attributes
+     * @param   array  $attributes
      * @param   string $valueSeparator
      * @param   string $fieldSeparator
      * @param   string $quote
+     *
      * @return  string
      */
-    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = array(), $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res  = '';
+        $res = '';
         $data = array();
         if (empty($attributes)) {
             $attributes = array_keys($this->_data);
@@ -715,9 +750,10 @@ Trait DataObject
      * Get object loaded data (original data)
      *
      * @param string $key
+     *
      * @return mixed
      */
-    public function getOrigData($key=null)
+    public function getOrigData($key = null)
     {
         if (is_null($key)) {
             return $this->_origData;
@@ -729,10 +765,11 @@ Trait DataObject
      * Initialize object original data
      *
      * @param string $key
-     * @param mixed $data
+     * @param mixed  $data
+     *
      * @return DataObject
      */
-    public function setOrigData($key=null, $data=null)
+    public function setOrigData($key = null, $data = null)
     {
         if (is_null($key)) {
             $this->_origData = $this->_data;
@@ -746,19 +783,21 @@ Trait DataObject
      * Compare object data with original data
      *
      * @param string $field
+     *
      * @return boolean
      */
     public function dataHasChangedFor($field)
     {
         $newData = $this->getData($field);
         $origData = $this->getOrigData($field);
-        return $newData!=$origData;
+        return $newData != $origData;
     }
 
     /**
      * Clears data changes status
      *
      * @param boolean $value
+     *
      * @return DataObject
      */
     public function setDataChanges($value)
@@ -772,9 +811,10 @@ Trait DataObject
      *
      * @param mixed $data
      * @param array $objects
+     *
      * @return string
      */
-    public function debug($data=null, &$objects=array())
+    public function debug($data = null, &$objects = array())
     {
         if (is_null($data)) {
             $hash = spl_object_hash($this);
@@ -785,13 +825,13 @@ Trait DataObject
             $data = $this->getData();
         }
         $debug = array();
-        foreach ($data as $key=>$value) {
+        foreach ($data as $key => $value) {
             if (is_scalar($value)) {
                 $debug[$key] = $value;
             } elseif (is_array($value)) {
                 $debug[$key] = $this->debug($value, $objects);
             } elseif ($value instanceof DataObject) {
-                $debug[$key.' ('.get_class($value).')'] = $value->debug(null, $objects);
+                $debug[$key . ' (' . get_class($value) . ')'] = $value->debug(null, $objects);
             }
         }
         return $debug;
@@ -801,8 +841,9 @@ Trait DataObject
      * Implementation of ArrayAccess::offsetSet()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
+     *
      * @param string $offset
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function offsetSet($offset, $value)
     {
@@ -813,7 +854,9 @@ Trait DataObject
      * Implementation of ArrayAccess::offsetExists()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
+     *
      * @param string $offset
+     *
      * @return boolean
      */
     public function offsetExists($offset)
@@ -825,6 +868,7 @@ Trait DataObject
      * Implementation of ArrayAccess::offsetUnset()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
+     *
      * @param string $offset
      */
     public function offsetUnset($offset)
@@ -836,7 +880,9 @@ Trait DataObject
      * Implementation of ArrayAccess::offsetGet()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
+     *
      * @param string $offset
+     *
      * @return mixed
      */
     public function offsetGet($offset)
@@ -849,9 +895,10 @@ Trait DataObject
      * Enter description here...
      *
      * @param string $field
+     *
      * @return boolean
      */
-    public function isDirty($field=null)
+    public function isDirty($field = null)
     {
         if (empty($this->_dirty)) {
             return false;
@@ -865,14 +912,15 @@ Trait DataObject
     /**
      * Enter description here...
      *
-     * @param string $field
+     * @param string  $field
      * @param boolean $flag
+     *
      * @return DataObject
      */
-    public function flagDirty($field, $flag=true)
+    public function flagDirty($field, $flag = true)
     {
         if (is_null($field)) {
-            foreach ($this->getData() as $field=>$value) {
+            foreach ($this->getData() as $field => $value) {
                 $this->flagDirty($field, $flag);
             }
         } else {
