@@ -78,7 +78,7 @@ Class Cache extends PhalconCache
         switch ($configDescription["backend"]) {
             case self::CACHE_BACKEND_REDIS:
                 $redis = new Redis();
-                $redis->connect(isset($configDescription["host"]) ? $configDescription["host"] : self::DEFAULT_REDIST_HOST, isset($configDescription["port"]) ? $configDescription["port"] : self::DEFAULT_REDIS_PORT);
+                $redis->connect(isset($configDescription["host"]) ? $configDescription["host"] : self::DEFAULT_REDIS_HOST, isset($configDescription["port"]) ? $configDescription["port"] : self::DEFAULT_REDIS_PORT);
                 return new RedisCache($frontend, array(
                     "redis" => $redis
                 ));
@@ -99,11 +99,11 @@ Class Cache extends PhalconCache
     }
 
     /**
-     * Lookup a given cache key. If it doesn't exist, run the callback function to lazy load the cache value and then store it in cache
+     * Lookup a given cache key. If it does not exist, run the callback function to lazy load the cache value and then store it in cache
      *
-     * @param string  $keyName
-     * @param closure $callback
-     * @param long    $lifetime
+     * @param string   $keyName
+     * @param callable $callback
+     * @param int      $lifetime
      *
      * @return mixed
      */
@@ -119,10 +119,10 @@ Class Cache extends PhalconCache
     }
 
     /**
-     * Returns a cached content reading the internal backends
+     * Returns a cached content reading the internal backend
      *
-     * @param    string $keyName
-     * @param   long    $lifetime
+     * @param string $keyName
+     * @param int    $lifetime
      *
      * @return  mixed
      */
@@ -136,19 +136,24 @@ Class Cache extends PhalconCache
 
 
     /**
-     * Stores cached content into all backends and stops the frontend
+     * Stores cached content into all backend and stops the frontend
      *
-     * @param string  $keyName
-     * @param string  $content
-     * @param long    $lifetime
-     * @param boolean $stopBuffer
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param null $keyName
+     * @param null $content
+     * @param null $lifetime
+     * @param null $stopBuffer
+     *
+     * @return bool|void
      */
     public function save($keyName = null, $content = null, $lifetime = null, $stopBuffer = null)
     {
         if (!$this->isCacheEnabled()) {
             return false;
         }
-        return parent::save($keyName, $content, $lifetime, $stopBuffer);
+        parent::save($keyName, $content, $lifetime, $stopBuffer);
+        return true;
     }
 
 
@@ -172,7 +177,7 @@ Class Cache extends PhalconCache
      * Checks if cache exists in at least one backend
      *
      * @param  string $keyName
-     * @param  long   $lifetime
+     * @param  int   $lifetime
      *
      * @return boolean
      */
@@ -196,7 +201,7 @@ Class Cache extends PhalconCache
     /**
      * Set cache enabled/disabled
      *
-     * @param unknown $flag
+     * @param bool $flag
      *
      * @return \Cloud\Core\Model\App
      */
@@ -235,7 +240,7 @@ Class Cache extends PhalconCache
 
     /**
      * Get all backend caches
-     * @return array
+     * @return \Phalcon\Cache\BackendInterface[]
      */
     public function getBackends()
     {

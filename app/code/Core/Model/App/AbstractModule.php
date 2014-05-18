@@ -15,6 +15,7 @@ abstract class AbstractModule implements ModuleDefinitionInterface
         if (isset($class[1])) {
             return $class[1];
         } //Get the Core from Cloud\Core\Module etc
+        return '';
     }
     /**
      * Register a specific autoloader for the module
@@ -26,16 +27,18 @@ abstract class AbstractModule implements ModuleDefinitionInterface
      * @see \Cloud\Core\Model\App::_registerAutoloader
      * @see \Phalcon\Mvc\ModuleDefinitionInterface::registerAutoloaders()
      */
-    public function registerAutoloaders($di)
+    public function registerAutoloaders()
     {
-        //The work for this function is handled elswhere, see function definition
+        //The work for this function is handled elsewhere, see function definition
         //Do nothing
     }
 
     /**
      * Register specific services for the module
      *
-     * @param Phalcon\DI\FactoryDefault
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param \Phalcon\DiInterface $di
      */
     public function registerServices($di)
     {
@@ -43,8 +46,8 @@ abstract class AbstractModule implements ModuleDefinitionInterface
         $di->set(
             'dispatcher',
             function () {
-                $dispatcher = new \Cloud\Core\Model\Controller\Dispatcher(array("module" => $this->_getModuleName()));
-                $dispatcher->setDefaultNamespace(\Cloud::app()->getModuleEntityNamespace(Model\App::MVC_ENTITY_CONTROLLER, $this->_getModuleName()));
+                $dispatcher = new \Cloud\Core\Model\App\Controller\Dispatcher(array("module" => $this->_getModuleName()));
+                $dispatcher->setDefaultNamespace(\Cloud::app()->getModuleEntityNamespace(\Cloud\Core\Model\App::MVC_ENTITY_CONTROLLER, $this->_getModuleName()));
                 $dispatcher->setDefaultController("IndexController");
                 return $dispatcher;
             }
@@ -53,10 +56,11 @@ abstract class AbstractModule implements ModuleDefinitionInterface
         $di->set(
             'view',
             function () {
-                $view = new \Cloud\Core\Model\View(array("module" => $this->_getModuleName()));
+                $view = new \Cloud\Core\Model\App\View(array("module" => $this->_getModuleName()));
                 $view->registerEngines(
                     array(
-                        ".volt" => 'Cloud\Core\Model\View\Engine\Volt'
+                        ".volt"  => 'Cloud\Core\Model\View\Engine\Volt',
+                        ".phtml" => 'Phalcon\Mvc\View\Engine\Php'
                     )
                 );
                 return $view;

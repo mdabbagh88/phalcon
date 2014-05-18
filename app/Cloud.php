@@ -68,15 +68,24 @@ Final Class Cloud
     /**
      * Register a value (set) in the registry by key & value
      *
-     * @param string $key
-     * @param        multitype : $value
-     * @param bool   $graceful
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param      $key
+     * @param      $value
+     * @param bool $graceful
      */
     public static function register($key, $value, $graceful = false)
     {
         self::$_registry[$key] = $value;
     }
 
+    /**
+     * UnRegister a value from registry by key
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param $key
+     */
     public static function unregister($key)
     {
         if (isset(self::$_registry[$key])) {
@@ -106,7 +115,7 @@ Final Class Cloud
      *
      * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
-     * @return \Phalcon\Events\Manager
+     * @return \Cloud\Core\Model\App\Events\Manager
      */
     public static function events()
     {

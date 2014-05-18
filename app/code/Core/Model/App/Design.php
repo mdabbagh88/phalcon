@@ -161,7 +161,7 @@ Class Design
      *
      * @param mixed  $context
      *
-     * @return unknown|Ambigous <string, mixed>
+     * @return mixed|string
      */
     public function addPackage($template_file_path, $context)
     {
@@ -220,7 +220,9 @@ Class Design
     /**
      * Set the layout to be rendered
      *
-     * @param string $layout
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param bool $layout
      *
      * @return \Cloud\Core\Model\App\Design
      */
@@ -308,7 +310,7 @@ Class Design
      */
     public function getCurrentLayout()
     {
-        return $this->_currentLayout;
+        return $this->_layout;
     }
 
     /**
@@ -320,7 +322,7 @@ Class Design
      */
     public function setCurrentLayout($layout)
     {
-        $this->_currentLayout = $layout;
+        $this->_layout = $layout;
         return $this;
     }
 

@@ -10,14 +10,17 @@ Class AbstractModel extends \Phalcon\Mvc\Model
     /**
      * Load a single model by an id an optional unique field
      *
-     * @param mixed  $id
-     * @param string $key If provided, should be a unique mysql column. Otherwise, the primary key is used
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
-     * @return \Cloud\Core\Model\AbstractModel
+     * @param mixed $id
+     * @param bool  $key If provided, should be a unique mysql column. Otherwise, the primary key is used
+     *
+     *
+     * @return \Phalcon\Mvc\Model
      */
     public static function load($id, $key = false)
     {
         $params = $key ? array($key => $id) : $id;
-        return $this->findFirst($params);
+        return self::findFirst($params);
     }
 }

@@ -8,8 +8,7 @@ use \Cloud as Cloud,
 
 Class Config extends \Phalcon\Config
 {
-    use \Cloud\Core\Library\ObjectTrait\CachingObject;
-
+    use Core\Library\ObjectTrait\CachingObject;
     /**
      * Base directories
      * @var array
@@ -30,7 +29,10 @@ Class Config extends \Phalcon\Config
 
     /**
      * Get the app status, and throw an exception if you can't find it
-     * @return Ambigous <string, NULL>
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return bool|null|string
      */
     public function whatIsAppStatus()
     {
@@ -38,15 +40,18 @@ Class Config extends \Phalcon\Config
             return $status;
         }
         Cloud::throwException("No application status set in " . __METHOD__);
+        return false;
     }
 
     /**
      * Return a specific configuration value
      *
-     * @param string $key
-     * @param string $path
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
-     * @return string|null
+     * @param string $key
+     * @param null   $default
+     *
+     * @return Config|mixed|null|void
      */
     public function get($key = "", $default = null)
     {
@@ -65,10 +70,12 @@ Class Config extends \Phalcon\Config
     /**
      * Return a specific configuration value
      *
-     * @param string $key
-     * @param string $path
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
-     * @return string|null
+     * @param string $key
+     * @param null   $default
+     *
+     * @return Config|mixed|null|void
      */
     public function getConfig($key = "", $default = null)
     {
@@ -215,28 +222,28 @@ Class Config extends \Phalcon\Config
         $modules = $this->_app->getCache()->load(
             $this->_getCacheKey("modules"),
             function () {
-                $module_configs = glob($this->getDir("modules") . DS . '*.xml');
+                $moduleConfigs = glob($this->getDir("modules") . DS . '*.xml');
                 $modules = array();
-                foreach ($module_configs as $module_file) {
-                    $module_data = simplexml_load_file($module_file);
-                    if ("valid" !== ($validate = $this->_validateModuleConfiguration($module_data))) {
-                        \Cloud::throwException("Invalid module configuration for file in: " . $module_file . " error: " . $validate);
+                foreach ($moduleConfigs as $moduleFile) {
+                    $moduleData = simplexml_load_file($moduleFile);
+                    if ("valid" !== ($validate = $this->_validateModuleConfiguration($moduleData))) {
+                        \Cloud::throwException("Invalid module configuration for file in: " . $moduleFile . " error: " . $validate);
                     }
-                    $module_name = preg_replace("/.*\/([^\.|\/]*)\.xml$/", "$1", $module_file); // Converts app/modules/Core --> Core
-                    if ($this->isModuleActive($module_name, $module_data)) {
-                        $modules[$module_name] = array(
-                            'namespace' => "Cloud\\{$module_name}",
-                            'directory' => $this->getDir("code") . DS . $module_name,
-                            'version'   => $this->_extract("version", $module_name, $module_data),
-                            'routes'    => $this->_extract('routes', $module_name, $module_data),
-                            'observers' => $this->_extract('observers', $module_name, $module_data)
+                    $moduleName = preg_replace("/.*\/([^\.|\/]*)\.xml$/", "$1", $moduleFile); // Converts app/modules/Core --> Core
+                    if ($this->isModuleActive($moduleName, $moduleData)) {
+                        $modules[$moduleName] = array(
+                            'namespace' => "Cloud\\{$moduleName}",
+                            'directory' => $this->getDir("code") . DS . $moduleName,
+                            'version'   => $this->_extract("version", $moduleName, $moduleData),
+                            'routes'    => $this->_extract('routes', $moduleName, $moduleData),
+                            'observers' => $this->_extract('observers', $moduleName, $moduleData)
                         );
                     }
                 }
                 return $modules;
             }
         );
-        $this->modules = $modules;
+        $this->_modules = $modules;
         Cloud::events()->attachObservers($modules);
         Cloud::events()->fire("app_config:after_load_modules", $this);
         return $this;
@@ -368,7 +375,7 @@ Class Config extends \Phalcon\Config
         return $this->_extract('active', $module_name, $simple_xml_node) && $this->_isModuleActiveForAppStatus($module_name, $simple_xml_node);
     }
 
-    protected function _isModuleActiveForAppStatus($module_name, $simple_xml_node)
+    protected function _isModuleActiveForAppStatus($moduleName, $simple_xml_node)
     {
         if (!isset($simple_xml_node->module->app_status)) {
             return true;
@@ -393,7 +400,7 @@ Class Config extends \Phalcon\Config
         }
     }
 
-    protected function _extract($key, $module_name, $simple_xml_node)
+    protected function _extract($key, $moduleName, $simple_xml_node)
     {
         switch ($key) {
             case "version":
@@ -436,6 +443,7 @@ Class Config extends \Phalcon\Config
                 return $observers;
                 break;
         }
+        return array();
     }
 
     protected function _validateModuleConfiguration($simple_xml_node)

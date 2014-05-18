@@ -193,7 +193,7 @@ Class App
 
     /**
      * Get the events manager singleton
-     * @return \Phalcon\Events\Manager
+     * @return \Cloud\Core\Model\App\Events\Manager
      */
     public function getEventsManager()
     {

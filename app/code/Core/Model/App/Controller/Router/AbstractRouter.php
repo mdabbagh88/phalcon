@@ -1,6 +1,7 @@
 <?php
 namespace Cloud\Core\Model\App\Controller\Router;
 
+use Phalcon\Mvc\Model\Exception;
 use \Phalcon\Mvc\Router as PhalconRouter,
     \Cloud\Core\Model\App\Config as Config;
 use Cloud\Core\Model\App\Controller\Dispatcher;
@@ -74,14 +75,14 @@ Abstract Class AbstractRouter extends PhalconRouter
 
     public function loadRoute()
     {
-        $module_frontname = $this->getModuleName();
+        $moduleFrontName = $this->getModuleName();
         $modules = \Cloud::app()->getConfig("modules", array());
         $namespace = \Cloud::app()->getCache()->load(
-            $this->_getCacheKey("namespace-for-" . $module_frontname),
-            function () use ($modules, $module_frontname) {
+            $this->_getCacheKey("namespace-for-" . $moduleFrontName),
+            function () use ($modules, $moduleFrontName) {
                 foreach ($modules as $module) {
                     if (isset($module["routes"]) && isset($module["routes"][$this->getCode()])) {
-                        if ($module["routes"][$this->getCode()]["frontName"] == $module_frontname) {
+                        if ($module["routes"][$this->getCode()]["frontName"] == $moduleFrontName) {
                             return $module["namespace"];
                         }
                     }
@@ -117,16 +118,15 @@ Abstract Class AbstractRouter extends PhalconRouter
     }
 
     /**
-     * Add a not found route the to the given dispatcher in the event the module controller or action doesn't exist
+     * Add a not found route the to the given dispatcher in the event the module controller or action does not exist
      * @see \Cloud\Core\Model\App\Controller\Router\AbstractRouter::addNotFound()
      */
     public function addNotFound(\Cloud\Core\Model\App\Controller\Dispatcher &$dispatcher)
     {
         $evManager = Cloud::events();
-
         $evManager->attach(
             "dispatch:beforeException",
-            function ($event, $dispatcher, $exception) {
+            function ($event, $dispatcher, Exception $exception) {
                 switch ($exception->getCode()) {
                     case PhDispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                     case PhDispatcher::EXCEPTION_ACTION_NOT_FOUND:

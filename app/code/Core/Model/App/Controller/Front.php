@@ -56,12 +56,12 @@ Class Front
 
         /** Check for a redirect / uri rewrite before we do anymore processing **/
         $uri = $router->getRewriteUri();
-        if (($rewriter = UrlRewriter::match($uri))) {
-            if ($rewriter->isRedirect()) {
+        if (($reWriter = UrlRewriter::match($uri))) {
+            if ($reWriter->isRedirect()) {
                 $this->getResponse()
-                    ->sendRedirectExit($rewriter->getRedirectUrl(), $rewriter->isRedirectExternal(), $rewriter->getRedirectStatusCode());
+                    ->sendRedirectExit($reWriter->getRedirectUrl(), $reWriter->isRedirectExternal(), $reWriter->getRedirectStatusCode());
             } else {
-                $uri = $rewriter->getRewrite();
+                $uri = $reWriter->getRewrite();
             }
         }
 

@@ -14,7 +14,7 @@ Version 3.0.1 out now! This is a very robust update to Phalcon's MVC setup. It p
 * Built in support for Redis sessions / cache (using phalcon incubator)
 * Overriden front controller and init process (gutted Phalcon defaults)
 * The ability to register event observers and module front names in the module configuration files.
-* Built in support for a url rewriter / redirect (Just insert rows into core_url_rewrite) 
+* Built in support for a url reWriter / redirect (Just insert rows into core_url_rewrite)
 * Caching service created on bootup, easy access with debugging
 * Global access to entire application
 * Option to "run" application or just boot it up (good for CLI stuff)

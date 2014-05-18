@@ -43,10 +43,13 @@ Abstract Class AbstractAction extends \Phalcon\Mvc\Controller
      * Send a json response and set the response content type
      * Optionally, you may choose to exit the program at this point
      *
-     * @param array  $data
-     * @param string $exit
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
-     * @return \Cloud\Core\Controller\ControllerBase
+     * @param      $data
+     * @param bool $sendAndExit
+     * @param bool $sendOnly
+     *
+     * @return $this
      */
     public function jsonResponse($data, $sendAndExit = false, $sendOnly = false)
     {
@@ -65,7 +68,10 @@ Abstract Class AbstractAction extends \Phalcon\Mvc\Controller
 
     /**
      * Return the dependency injector singleton
-     * @return Ambigous <\Phalcon\DI\FactoryDefault, \Cloud\Core\Model\Phalcon\DI\FactoryDefault>
+     *
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @return Cloud\Core\Model\App\DependencyInjector
      */
     public function di()
     {

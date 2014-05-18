@@ -499,8 +499,12 @@ Trait DataObject
     /**
      * Convert object attributes to XML
      *
-     * @param  array $arrAttributes array of required attributes
-     * @param string $rootName      name of the root element
+     * @author Mohamed Meabed <mo.meabed@gmail.com>
+     *
+     * @param array  $arrAttributes
+     * @param string $rootName
+     * @param bool   $addOpenTag
+     * @param bool   $addCdata
      *
      * @return string
      */
@@ -513,7 +517,7 @@ Trait DataObject
         if (!empty($rootName)) {
             $xml .= '<' . $rootName . '>' . "\n";
         }
-        $xmlModel = new Varien_Simplexml_Element('<node></node>');
+        $xmlModel = new \SimpleXMLElement('<node></node>');
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
             if ($addCdata === true) {
@@ -556,7 +560,7 @@ Trait DataObject
     protected function __toJson(array $arrAttributes = array())
     {
         $arrData = $this->toArray($arrAttributes);
-        $json = Zend_Json::encode($arrData);
+        $json = json_encode($arrData);
         return $json;
     }
 
@@ -731,7 +735,6 @@ Trait DataObject
      */
     public function serialize($attributes = array(), $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res = '';
         $data = array();
         if (empty($attributes)) {
             $attributes = array_keys($this->_data);
