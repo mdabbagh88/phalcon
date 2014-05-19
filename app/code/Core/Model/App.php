@@ -304,6 +304,9 @@ Class App
                     }
                 );
                 $run->register();
+                $handler->addResourcePath(CLOUD_ROOT . DS . 'public');
+                $handler->addCustomCss('assets/PrettyPageHandler.css');
+
                 $handler->addDataTable(
                     "Application Exception: " . $exception_number,
                     explode("\n", $exception_message)

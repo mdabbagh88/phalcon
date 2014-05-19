@@ -1,6 +1,6 @@
 {
     "require": {
-        "filp/whoops": "1",
+        "filp/whoops": "dev-master",
         "phalcon/incubator": "dev-master",
         "phalcon/devtools": "dev-master"
     }
