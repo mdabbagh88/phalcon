@@ -1,5 +1,7 @@
 <?php
+// Composer autoload
 include CLOUD_ROOT . DS . "vendor/autoload.php";
+
 $loader = new \Phalcon\Loader();
 $namespaces = array(
     "Cloud" => APP_PATH . DS . "code",

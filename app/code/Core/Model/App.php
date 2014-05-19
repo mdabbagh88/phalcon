@@ -8,6 +8,10 @@ use Cloud,
 use Cloud\Core\Model\App\Cache;
 use Cloud\Core\Model\App\ServiceMeta;
 
+use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
+use Exception as BaseException;
+
 Class App
 {
     /**
@@ -255,20 +259,17 @@ Class App
     }
 
     /**
-     *
+     * Exception handling plus Whoops Integration
      *
      * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
      * @param \Exception $e
      *
      * @return $this
+     * @throws \Exception
      */
     protected function _handleException(\Exception $e)
     {
-        $whoops = new \Whoops\Run;
-        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-        $whoops->register();
-
         $exception_number = 'ERR-' . \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         $exception_message = $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine() . "\n\n" . $e->getTraceAsString();
         \Cloud::logException($exception_message, $exception_number);
@@ -282,12 +283,36 @@ Class App
             case self::APP_STATUS_DEVELOPMENT:
             case self::APP_STATUS_STAGING:
             default:
-                echo '<pre>';
+                /*echo '<pre>';
                 print "Application Exception: " . $exception_number . "\n";
                 print $exception_message;
-                echo '</pre>';
+                echo '</pre>';*/
+                $run = new Run;
+                $handler = new PrettyPageHandler;
+                // Add a custom table to the layout:
+                $run->pushHandler($handler);
+                // Example: tag all frames with a comment
+                $run->pushHandler(
+                    function ($exception, $inspector, $run) {
+                        $frames = $inspector->getFrames();
+                        foreach ($frames as $i => $frame) {
+                            $frame->addComment('This is frame number ' . $i, '');
+                            if ($function = $frame->getFunction()) {
+                                $frame->addComment("This frame is within function '$function'", '');
+                            }
+                        }
+                    }
+                );
+                $run->register();
+                $handler->addDataTable(
+                    "Application Exception: " . $exception_number,
+                    explode("\n", $exception_message)
+                );
+                throw $e;
                 break;
+
         }
+
         return $this;
     }
 
@@ -296,7 +321,7 @@ Class App
      *
      * @author Mohamed Meabed <mo.meabed@gmail.com>
      *
-     * @param        $intVal
+     * @param int    $intVal
      * @param string $separator
      *
      * @return string
