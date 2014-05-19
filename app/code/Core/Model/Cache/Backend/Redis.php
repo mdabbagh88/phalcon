@@ -1,7 +1,7 @@
 <?php
 namespace Cloud\Core\Model\Cache\Backend;
 
-Class Redis extends \Lib\Phalcon\Cache\Backend\Redis
+Class Redis extends \Phalcon\Cache\Backend\Redis
 {
 
 }

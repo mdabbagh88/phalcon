@@ -17,7 +17,7 @@ use Cloud as Cloud;
 
 Class Front
 {
-    use \Cloud\Core\Library\ObjectTrait\EventingObject;
+    use \Lib\Core\ObjectTrait\EventingObject;
 
     /**
      * Application singleton

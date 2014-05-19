@@ -12,8 +12,8 @@ use Phalcon\Mvc\Dispatcher as PhDispatcher;
 
 Abstract Class AbstractRouter extends PhalconRouter
 {
-    use \Cloud\Core\Library\ObjectTrait\CachingObject;
-    use \Cloud\Core\Library\ObjectTrait\EventingObject;
+    use \Lib\Core\ObjectTrait\CachingObject;
+    use \Lib\Core\ObjectTrait\EventingObject;
 
     const ADMIN_ROUTER = "admin";
     const FRONTEND_ROUTER = "frontend";

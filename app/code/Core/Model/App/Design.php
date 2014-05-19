@@ -8,7 +8,7 @@ use Cloud\Core\Model\App\Design\Seo as Seo;
 
 Class Design
 {
-    use \Cloud\Core\Library\ObjectTrait\EventingObject;
+    use \Lib\Core\ObjectTrait\EventingObject;
 
     /**
      * The default package folder. In the event a file isn't found in the current package, system will attempt to "fall back" to defautl

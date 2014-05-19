@@ -1,5 +1,5 @@
 <?php
-namespace Cloud\Core\Library;
+namespace Lib\Core\Library;
 
 use \Cloud\Core\Library\ObjectTrait as ObjectTraits;
 

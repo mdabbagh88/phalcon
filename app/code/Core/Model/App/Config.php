@@ -8,7 +8,7 @@ use \Cloud as Cloud,
 
 Class Config extends \Phalcon\Config
 {
-    use Core\Library\ObjectTrait\CachingObject;
+    use \Lib\Core\ObjectTrait\CachingObject;
     /**
      * Base directories
      * @var array

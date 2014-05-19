@@ -1,5 +1,5 @@
 <?php
-namespace Cloud\Core\Library\ObjectTrait;
+namespace Lib\Core\ObjectTrait;
 
 Trait EventingObject
 {

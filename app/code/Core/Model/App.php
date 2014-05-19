@@ -265,6 +265,10 @@ Class App
      */
     protected function _handleException(\Exception $e)
     {
+        $whoops = new \Whoops\Run;
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
+
         $exception_number = 'ERR-' . \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         $exception_message = $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine() . "\n\n" . $e->getTraceAsString();
         \Cloud::logException($exception_message, $exception_number);

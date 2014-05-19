@@ -3,9 +3,9 @@ namespace Cloud\Core\Model;
 
 Class AbstractModel extends \Phalcon\Mvc\Model
 {
-    use \Cloud\Core\Library\ObjectTrait\FactoryObject;
-    use \Cloud\Core\Library\ObjectTrait\EventingObject;
-    use \Cloud\Core\Library\ObjectTrait\CachingObject;
+    use \Lib\Core\ObjectTrait\FactoryObject;
+    use \Lib\Core\ObjectTrait\EventingObject;
+    use \Lib\Core\ObjectTrait\CachingObject;
 
     /**
      * Load a single model by an id an optional unique field

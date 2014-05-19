@@ -3,8 +3,8 @@ namespace Cloud\Core\Model\App;
 
 use \Cloud\Core\Model\App;
 use \Cloud as Cloud;
-use \Lib\Phalcon\Session\Adapter\Memcache as MemcacheSession;
-use \Lib\Phalcon\Session\Adapter\Redis as RedisSession;
+use \Phalcon\Session\Adapter\Memcache as MemcacheSession;
+use \Phalcon\Session\Adapter\Redis as RedisSession;
 use \Phalcon\Session\Adapter\Files as FileSession;
 
 Abstract Class Session

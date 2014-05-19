@@ -5,7 +5,7 @@ Use Cloud as Cloud;
 
 Abstract Class AbstractAction extends \Phalcon\Mvc\Controller
 {
-    use \Cloud\Core\Library\ObjectTrait\EventingObject;
+    use \Lib\Core\ObjectTrait\EventingObject;
 
     public function initialize()
     {

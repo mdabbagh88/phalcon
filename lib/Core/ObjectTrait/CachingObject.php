@@ -1,7 +1,7 @@
 <?php
-namespace Cloud\Core\Library\ObjectTrait;
+namespace Lib\Core\ObjectTrait;
 
-use Cloud\Core\Library\ObjectTrait;
+use Lib\Core\ObjectTrait;
 
 Trait CachingObject
 {
