@@ -65,20 +65,8 @@ Class Front
             }
         }
 
-        Cloud::events()->fire(
-            "controller_front:before_dispatch",
-            $this,
-            array(
-                "uri" => $uri
-            )
-        );
-        Cloud::events()->fire(
-            $this->getWebsiteEventName("controller_front", "before_dispatch"),
-            $this,
-            array(
-                "uri" => $uri
-            )
-        );
+        Cloud::events()->fire("controller_front:before_dispatch", $this, array("uri" => $uri));
+        Cloud::events()->fire($this->getWebsiteEventName("controller_front", "before_dispatch"), $this, array("uri" => $uri));
         /** Match the uri to a route and update the result in the dispatcher **/
         $router->handle($uri);
         $router->prime($dispatcher);
@@ -95,8 +83,7 @@ Class Front
         Cloud::events()->fire("controller_front:before_send_response", $this);
         Cloud::events()->fire($this->getWebsiteEventName("controller_front", "before_send_response"), $this);
         /** Send the response back to the client **/
-        $response->sendHeaders()
-            ->send();
+        $response->sendHeaders()->send();
         return $this;
 
     }

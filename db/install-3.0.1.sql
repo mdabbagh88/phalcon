@@ -1,4 +1,5 @@
-use cloud9living_rewrite;
+;use cloud;
+SET @@global.innodb_large_prefix = 1;
 DROP TABLE IF EXISTS `core_website`;
 CREATE TABLE `core_website`(
 	website_id TINYINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -34,9 +35,9 @@ VALUES
 DROP TABLE IF EXISTS `core_url_rewrite`;
 CREATE TABLE `core_url_rewrite`(
 	`url_rewrite_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`source_path` VARCHAR(500), INDEX `idx_core_urL_rewrite_source_path` (`source_path`),
-	`rewrite_path` VARCHAR(500), INDEX `idx_core_url_rewrite_rewrite_path` (`rewrite_path`),
-#	`website_id`  TINYINT UNSIGNED NOT NULL, CONSTRAINT `fk_core_url_rewrite_website_id` FOREIGN KEY(`website_id`) REFERENCES `core_website`(`website_id`) ON DELETE CASCADE,
+	`source_path` VARCHAR(255), INDEX `idx_core_urL_rewrite_source_path` (`source_path`),
+	`rewrite_path` VARCHAR(255), INDEX `idx_core_url_rewrite_rewrite_path` (`rewrite_path`),
+	`website_id`  TINYINT UNSIGNED NOT NULL, CONSTRAINT `fk_core_url_rewrite_website_id` FOREIGN KEY(`website_id`) REFERENCES `core_website`(`website_id`) ON DELETE CASCADE,
 	`redirect` TINYINT(1) DEFAULT 0, INDEX `idx_core_url_rewrite_redirect` (`redirect`),
 	`redirect_external` TINYINT(1) DEFAULT 0,
 	`redirect_status` VARCHAR(10) DEFAULT "301"

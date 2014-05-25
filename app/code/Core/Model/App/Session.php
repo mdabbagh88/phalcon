@@ -18,7 +18,7 @@ Abstract Class Session
     const DEFAULT_SESSION_SAVE = "File";
     const DEFAULT_LIFETIME = 86400; //One day
     const DEFAULT_COOKIE_LIFETIME = 86400;
-    const DEFAULT_COOKIE_NAME = "cloud9living";
+    const DEFAULT_COOKIE_NAME = "cloud";
     /**
      * Session instance
      * @var \Phalcon\Session\Adapter

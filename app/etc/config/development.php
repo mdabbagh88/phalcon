@@ -8,10 +8,12 @@ return array(
             "enabled" => true,
             "layers"  => array(
                 array(
-                    "backend"  => \Cloud\Core\Model\App\Cache::CACHE_BACKEND_REDIS,
-                    "port"     => "6379",
-                    "host"     => "localhost",
-                    "priority" => 1
+                    //"backend"  => \Cloud\Core\Model\App\Cache::CACHE_BACKEND_REDIS,
+                    //"port"     => "6379",
+                    //"host"     => "localhost",
+                    //"priority" => 1,
+                    "backend"  => \Cloud\Core\Model\App\Cache::CACHE_BACKEND_FILE,
+                    "cacheDir" => CLOUD_ROOT . DS . "var" . DS . "cache" . DS,
                 ),
                 array(
                     "backend"  => \Cloud\Core\Model\App\Cache::CACHE_BACKEND_FILE,
@@ -21,9 +23,10 @@ return array(
             )
         ),
         "session"  => array(
-            "save_path" => \Cloud\Core\Model\App\Session::SESSION_SAVE_REDIS,
-            "host"      => "localhost",
-            "port"      => "6380"
+            //"save_path" => \Cloud\Core\Model\App\Session::SESSION_SAVE_REDIS,
+            //"host"      => "localhost",
+            //"port"      => "6380"
+            "save_path" => \Cloud\Core\Model\App\Session::SESSION_SAVE_FILE,
         )
     ),
     "database"    => array(
