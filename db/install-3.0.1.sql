@@ -50,3 +50,9 @@ CREATE TABLE `core_url_rewrite`(
 ;
 TRUNCATE core_url_rewrite;
 select * from core_url_rewrite; */
+
+/*
+INSERT INTO core_url_rewrite (source_path, rewrite_path, website_id, redirect,redirect_external,redirect_status) VALUES
+("/default/test/me", "/default/test/rewrite", '1','0', '0', ''),
+("/default/test/redirect", "/default/test/me", '1','1', '0', "301"),
+("/default/test/external", "http://google.com", '1','1', '1', "301");*/

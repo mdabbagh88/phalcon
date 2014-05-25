@@ -56,6 +56,7 @@ Class Front
 
         /** Check for a redirect / uri rewrite before we do anymore processing **/
         $uri = $router->getRewriteUri();
+
         if (($reWriter = UrlRewriter::match($uri))) {
             if ($reWriter->isRedirect()) {
                 $this->getResponse()
@@ -64,7 +65,6 @@ Class Front
                 $uri = $reWriter->getRewrite();
             }
         }
-
         Cloud::events()->fire("controller_front:before_dispatch", $this, array("uri" => $uri));
         Cloud::events()->fire($this->getWebsiteEventName("controller_front", "before_dispatch"), $this, array("uri" => $uri));
         /** Match the uri to a route and update the result in the dispatcher **/

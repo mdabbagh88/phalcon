@@ -33,6 +33,13 @@ Abstract Class AbstractRouter extends PhalconRouter
         Cloud::events()->fire($this->getWebsiteEventName("router", "after_add_routes"), $this);
         return $this;
     }
+    public function getRewriteUri()
+    {
+        if(!isset($_GET['_url']) && isset($_SERVER['REQUEST_URI'])) {
+            $_GET['_url'] = $_SERVER['REQUEST_URI'];
+        }
+        return parent::getRewriteUri();
+    }
 
     public function prime(Dispatcher &$dispatcher)
     {
