@@ -53,7 +53,6 @@ Class Front
         $router = $this->getRouter();
         $dispatcher = $this->getDispatcher();
         $design = $this->getDesign();
-
         /** Check for a redirect / uri rewrite before we do anymore processing **/
         $uri = $router->getRewriteUri();
 

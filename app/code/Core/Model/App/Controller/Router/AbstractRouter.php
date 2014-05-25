@@ -83,7 +83,8 @@ Abstract Class AbstractRouter extends PhalconRouter
     public function loadRoute()
     {
         $moduleFrontName = $this->getModuleName();
-        $modules = \Cloud::app()->getConfig("modules", array());
+        echo "<pre>";
+        $modules = \Cloud::app()->getConfig("_modules", array());
         $namespace = \Cloud::app()->getCache()->load(
             $this->_getCacheKey("namespace-for-" . $moduleFrontName),
             function () use ($modules, $moduleFrontName) {
